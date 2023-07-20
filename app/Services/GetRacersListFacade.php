@@ -17,7 +17,7 @@ class GetRacersListFacade {
         $this->arr = new ArrayParse;
     }
 
-    public function getList ($resoursesPath, $sort) {
+    public function getList (string $resoursesPath, string $sort) :array {
         
         $startTime = $this->arr->getArray("$resoursesPath/start.log");
         $endTime = $this->arr->getArray("$resoursesPath/end.log");

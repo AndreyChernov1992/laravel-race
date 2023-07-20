@@ -28,11 +28,12 @@ class MainController extends Controller {
         $sortOrder = $request->get("sort_order");
         $names = new ArrayParse;
         $resourcesPath = public_path();
+        dd($resourcesPath);
         $racers = $names->getArray($resourcesPath . "/abbreviations.txt");
         if ($sortOrder === "desc") {
             arsort($racers);
         }
-        if ($sortOrder) {
+        elseif ($sortOrder) {
             asort($racers);
         }
 
