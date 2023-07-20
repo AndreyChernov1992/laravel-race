@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ArrayParse;
 use App\Services\GetRacersListFacade;
-use App\Services\GetRacersName;
 use Illuminate\Http\Request;
 
 class MainController extends Controller {
@@ -13,29 +13,38 @@ class MainController extends Controller {
         return view("home");
 
     }
-    public function report () {
+    public function report (Request $request) {
 
         $finalTime = new GetRacersListFacade;
         $resourcesPath = public_path();
-        $result = $finalTime->getList($resourcesPath, "asc");
+        $sortOrder = $request->get("sort_order") ?? "asc";
+        $result = $finalTime->getList($resourcesPath, $sortOrder);
 
         return view("report")->with("result", $result);
 
     }
-    public function drivers () {
+    public function drivers (Request $request) {
 
-        $names = new GetRacersName;
+        $sortOrder = $request->get("sort_order");
+        $names = new ArrayParse;
         $resourcesPath = public_path();
-        $racers = $names->getList($resourcesPath);
+        $racers = $names->getArray($resourcesPath . "/abbreviations.txt");
+        if ($sortOrder === "desc") {
+            arsort($racers);
+        }
+        if ($sortOrder) {
+            asort($racers);
+        }
 
         return view("drivers")->with("result", $racers);
 
     }
-    public function racer () {
+    public function racer (Request $request) {
 
         $finalTime = new GetRacersListFacade;
         $resourcesPath = public_path();
-        $result = $finalTime->getList($resourcesPath, "asc");
+        $sortOrder = $request->get("sort_order") ?? "asc";
+        $result = $finalTime->getList($resourcesPath, $sortOrder);
 
         return view("racer")->with("result", $result);
 
