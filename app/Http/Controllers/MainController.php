@@ -6,14 +6,18 @@ use App\Services\ArrayParse;
 use App\Services\GetRacersListFacade;
 use Illuminate\Http\Request;
 
-class MainController extends Controller {
+class MainController extends Controller
+{
 
-    public function home () {
+    public function home()
+    {
 
         return view("home");
 
     }
-    public function report (Request $request) {
+
+    public function report(Request $request)
+    {
 
         $finalTime = new GetRacersListFacade;
         $resourcesPath = public_path();
@@ -23,24 +27,26 @@ class MainController extends Controller {
         return view("report")->with("result", $result);
 
     }
-    public function drivers (Request $request) {
+
+    public function drivers(Request $request)
+    {
 
         $sortOrder = $request->get("sort_order");
         $names = new ArrayParse;
         $resourcesPath = public_path();
-        dd($resourcesPath);
         $racers = $names->getArray($resourcesPath . "/abbreviations.txt");
         if ($sortOrder === "desc") {
             arsort($racers);
-        }
-        elseif ($sortOrder) {
+        } elseif ($sortOrder) {
             asort($racers);
         }
 
         return view("drivers")->with("result", $racers);
 
     }
-    public function racer (Request $request) {
+
+    public function racer(Request $request)
+    {
 
         $finalTime = new GetRacersListFacade;
         $resourcesPath = public_path();
