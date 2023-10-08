@@ -5,11 +5,13 @@ namespace Tests\Unit;
 use App\Services\GetRacersListFacade;
 use PHPUnit\Framework\TestCase;
 
-class ServiceTest extends TestCase {
+class ServiceTest extends TestCase 
+{
 
     private GetRacersListFacade $object;    
 
-    protected function setUp() :void {
+    protected function setUp() :void 
+    {
         $this->object = new GetRacersListFacade;
     }
 
@@ -17,7 +19,8 @@ class ServiceTest extends TestCase {
     * @covers GetRacersListFacade::getList
     */
 
-    public function testString() :void {
+    public function testString() :void 
+    {
         $a = "D:\OSPanel\domains\laravel-race\public";
         $b = "asc";
         $result = $this->object->getList($a, $b);
